@@ -13,16 +13,14 @@
 - [ ] Karten Erstellen
 - [ ] Karten ausgeben Lassen und einen Wert anzeigen lassen.
 
-✍️ Heute habe ich... (50-100 Wörter)
-
-☝️ Vergessen Sie nicht, bis einen ersten Code auf github hochzuladen
+Ich habe heute die Karten mit deren dazugehörigen Werten erstellt und habe alle ausgegeben. Das Programm funktionier und ich hatte keine wirklichen fehler.
 
 ## 21.2: Explorativer Wegwerf-Prototyp
 
-- [ ] ... (dieses AP sollte offline, also ohne Laptop zu bearbeiten sein)
-- [ ] ...
-- [ ] ...
-- [ ] ...
+- [ ] Eine Skizze von meinen Forms machen (offline)
+- [ ] Zwei random Karte ausgeben 
+- [ ] Buttons für noch eine Karte und halten
+- [ ] Einsätze plus Werte der Karten anzeigen.
 
 ✍️ Heute habe ich... (50-100 Wörter)
 
