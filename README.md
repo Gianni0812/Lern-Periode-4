@@ -17,14 +17,12 @@ Ich habe heute die Karten mit deren dazugehörigen Werten erstellt und habe alle
 
 ## 21.2: Explorativer Wegwerf-Prototyp
 
-- [ ] Eine Skizze von meinen Forms machen (offline)
-- [ ] Zwei random Karte ausgeben 
-- [ ] Buttons für noch eine Karte und halten
-- [ ] Einsätze plus Werte der Karten anzeigen.
+- [x] Eine Skizze von meinen Forms machen (offline)
+- [x] Zwei random Karte ausgeben 
+- [x] Buttons für noch eine Karte und halten
+- [x] Einsätze plus Werte der Karten anzeigen.
 
-✍️ Heute habe ich... (50-100 Wörter)
-
-☝️ Vergessen Sie nicht, bis einen ersten Code auf github hochzuladen
+Ich habe heute einen teil meiner Arbeitspackete gemacht. Ich habe programmiert, dass das Programm zwei random Karten für den Dealer und 2 für denn Spieler ausgegeben werden. Die zweite Karte des Dealers ist versteckt so das man sie noch nicht sehen kann. Die Werte der Karten werden zusammen gerechnet und ausgegeben. Die Positionen sind leider noch nicht ganz richtig, werde ich aber noch daran arbeiten. Wenn man auf Karte drückt, kriegt man noch eine Karte und wenn man über 21 ist hat man verloren. Ich bin bis her sehr zufrieden und komme gut voran.
 
 ## 28.2: Kern-Funktionalität
 
