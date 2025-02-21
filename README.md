@@ -25,7 +25,12 @@ Ich habe heute die Karten mit deren dazugehörigen Werten erstellt und habe alle
 Ich habe heute einen teil meiner Arbeitspackete gemacht. Ich habe programmiert, dass das Programm zwei random Karten für den Dealer und 2 für denn Spieler ausgegeben werden. Die zweite Karte des Dealers ist versteckt so das man sie noch nicht sehen kann. Die Werte der Karten werden zusammen gerechnet und ausgegeben. Die Positionen sind leider noch nicht ganz richtig, werde ich aber noch daran arbeiten. Wenn man auf Karte drückt, kriegt man noch eine Karte und wenn man über 21 ist hat man verloren. Ich bin bis her sehr zufrieden und komme gut voran.
 
 ## 28.2: Kern-Funktionalität
+- [ ] Halten button hinzufügen
+- [ ] Einsätze hinzufügen
+- [ ] Verdoppeln button hinzufügen
+- [ ] Positionen anpassen
 
+      
 ## 7.3: Kern-Funktionalität
 
 ## 14.3: Architektur ausbauen
