@@ -25,14 +25,19 @@ Ich habe heute die Karten mit deren dazugehörigen Werten erstellt und habe alle
 Ich habe heute einen teil meiner Arbeitspackete gemacht. Ich habe programmiert, dass das Programm zwei random Karten für den Dealer und 2 für denn Spieler ausgegeben werden. Die zweite Karte des Dealers ist versteckt so das man sie noch nicht sehen kann. Die Werte der Karten werden zusammen gerechnet und ausgegeben. Die Positionen sind leider noch nicht ganz richtig, werde ich aber noch daran arbeiten. Wenn man auf Karte drückt, kriegt man noch eine Karte und wenn man über 21 ist hat man verloren. Ich bin bis her sehr zufrieden und komme gut voran.
 
 ## 28.2: Kern-Funktionalität
-- [ ] Halten button hinzufügen
-- [ ] Einsätze hinzufügen
+- [x] Halten button hinzufügen
+- [x] Einsätze hinzufügen
 - [ ] Verdoppeln button hinzufügen
 - [ ] Positionen anpassen
 
+Ich habe nicht ganz alle Ziele erreicht die ich erreichen wollte, da meine Arbeitspackete die ich bearbeitet habe länger gedauert haben als gedacht. Ich habe trotzdem einen Halten button hinzugefügt und der Spieler kann vor dem Spiel einen einsatz hinzufügen. Wenn man gewinnt oder verliert wird dies auch im Programm gespeichert und man hat nur noch denn Gewinn nach dem Spiel. Die anordnung passt mir jedoch immer noch nicht aber dies werde ich in der Archithektur bearbeiten.
       
 ## 7.3: Kern-Funktionalität
-
+- [ ] Verdoppeln Button Hinzufügen
+- [ ] Shop im Hauptmenu Hinzufügen
+- [ ] Geld automaten hinzufügen
+      
+      
 ## 14.3: Architektur ausbauen
 
 ## 21.3: Architektur ausbauen
