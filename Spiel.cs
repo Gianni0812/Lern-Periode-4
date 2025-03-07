@@ -22,33 +22,34 @@ namespace Lern_Oeriode_4
         private Button holdButton;
         private TextBox betTextBox;
         private Button startGameButton;
-        private Button backButton; // Zurück-Button
+        private Button backButton; 
 
         public Spiel()
         {
             InitializeComponent();
+            
             deck = CreateDeck();
             playerHand = new List<Card>();
             dealerHand = new List<Card>();
             playerScore = 0;
 
-            // Lade Guthaben
+            
             playerBalance = LoadBalance();
 
             int formWidth = this.ClientSize.Width;
             int formHeight = this.ClientSize.Height;
 
-            // Balance Label
+           
             balanceLabel = new Label
             {
-                Text = "Guthaben: " + playerBalance,
-                Location = new Point(formWidth - 500, 20),
+                Text = "Jetons: " + playerBalance,
+                Location = new Point(formWidth - 820, 60),
                 Size = new Size(200, 30),
                 TextAlign = ContentAlignment.MiddleCenter
             };
             this.Controls.Add(balanceLabel);
 
-            // Score Label
+            
             scoreLabel = new Label
             {
                 Text = "Punkte: 0",
@@ -58,7 +59,7 @@ namespace Lern_Oeriode_4
             };
             this.Controls.Add(scoreLabel);
 
-            // Dealer Label
+            
             dealerLabel = new Label
             {
                 Text = "Dealer: ? + ?",
@@ -68,7 +69,7 @@ namespace Lern_Oeriode_4
             };
             this.Controls.Add(dealerLabel);
 
-            // Karte ziehen Button
+            
             drawButton = new Button
             {
                 Text = "Karte ziehen",
@@ -76,10 +77,10 @@ namespace Lern_Oeriode_4
                 Size = new Size(100, 30)
             };
             drawButton.Click += DrawCard;
-            drawButton.Enabled = false; // Zu Beginn deaktiviert
+            drawButton.Enabled = false; 
             this.Controls.Add(drawButton);
 
-            // Halten Button
+            
             holdButton = new Button
             {
                 Text = "Halten",
@@ -87,58 +88,59 @@ namespace Lern_Oeriode_4
                 Size = new Size(100, 30)
             };
             holdButton.Click += Hold;
-            holdButton.Enabled = false; // Zu Beginn deaktiviert
+            holdButton.Enabled = false; 
             this.Controls.Add(holdButton);
 
-            // Einsatz Eingabe
+          
             betTextBox = new TextBox
-            {
-                Location = new Point(formWidth / 2 - 50, formHeight - 400),
+            {                
+                Location = new Point(formWidth / 2 - 350, formHeight - 150),
                 Size = new Size(100, 30),
-                Text = "0"
+                Text = ""
             };
             this.Controls.Add(betTextBox);
 
-            // Start Spiel Button
+            
             startGameButton = new Button
             {
+                
                 Text = "Start Spiel",
-                Location = new Point(formWidth / 2 - 50, formHeight - 350),
+                Location = new Point(formWidth / 2 - 350, formHeight - 100),
                 Size = new Size(100, 30)
             };
             startGameButton.Click += StartGame;
             this.Controls.Add(startGameButton);
+           
 
-            // "Zurück"-Button hinzufügen
             backButton = new Button
             {
                 Text = "Zurück",
-                Location = new Point(formWidth / 2 - 50, formHeight - 250), // Position anpassen
+                Location = new Point(formWidth / 2 - 50, formHeight - 250),
                 Size = new Size(100, 30)
             };
-            backButton.Click += button1_Click; // Ereignis verknüpfen
+            backButton.Click += button1_Click; 
             this.Controls.Add(backButton);
         }
 
         private void StartGame(object sender, EventArgs e)
         {
-            // Setze den Einsatz des Spielers
+            
             int betAmount;
             if (int.TryParse(betTextBox.Text, out betAmount) && betAmount > 0 && betAmount <= playerBalance)
             {
                 playerBet = betAmount;
                 playerBalance -= playerBet;
-                balanceLabel.Text = "Guthaben: " + playerBalance;
+                balanceLabel.Text = "Jetons: " + playerBalance;
                 startGameButton.Enabled = false;
                 betTextBox.Enabled = false;
 
-                // Starte das Spiel
+                
                 deck = CreateDeck();
                 playerHand.Clear();
                 dealerHand.Clear();
                 playerScore = 0;
 
-                // Karten austeilen
+                
                 playerHand.Add(deck[0]);
                 deck.RemoveAt(0);
                 playerHand.Add(deck[0]);
@@ -152,11 +154,11 @@ namespace Lern_Oeriode_4
                 scoreLabel.Text = "Punkte: " + playerScore;
                 dealerLabel.Text = $"Dealer: {dealerHand[0]} + ?";
 
-                // Setze Dealer- und Spieler-Karten
+                
                 int formWidth = this.ClientSize.Width;
                 int formHeight = this.ClientSize.Height;
 
-                // Dealer
+                
                 Label dealerCard1 = new Label
                 {
                     Text = dealerHand[0].ToString(),
@@ -177,7 +179,7 @@ namespace Lern_Oeriode_4
                 };
                 this.Controls.Add(dealerCard2);
 
-                // Spieler
+                
                 Label playerCard1 = new Label
                 {
                     Text = playerHand[0].ToString(),
@@ -198,13 +200,13 @@ namespace Lern_Oeriode_4
                 };
                 this.Controls.Add(playerCard2);
 
-                // Buttons aktivieren
+                
                 drawButton.Enabled = true;
                 holdButton.Enabled = true;
             }
             else
             {
-                MessageBox.Show("Ungültiger Einsatz. Dein Guthaben: " + playerBalance);
+                MessageBox.Show("Ungültiger Einsatz. Deine Jetons: " + playerBalance);
             }
         }
 
@@ -247,26 +249,26 @@ namespace Lern_Oeriode_4
 
         private void Hold(object sender, EventArgs e)
         {
-            // Deaktiviere den "Karte ziehen"-Button, damit der Spieler nicht weiterziehen kann
+            
             drawButton.Enabled = false;
 
-            // Der Dealer zieht nun Karten, bis seine Punktzahl mindestens 17 beträgt
+            
             DealerTurn();
         }
 
         private void DealerTurn()
         {
-            // Aktualisiere die Dealer-Kartenanzeige, um die aktuelle Hand des Dealers zu zeigen
+            
             dealerLabel.Text = $"Dealer: {dealerHand[0]} + {dealerHand[1]}";
 
-            // Solange der Dealer weniger als 17 Punkte hat, zieht er Karten
+            
             while (CalculateScore(dealerHand) < 17)
             {
                 Card drawnCard = deck[0];
                 deck.RemoveAt(0);
                 dealerHand.Add(drawnCard);
 
-                // Dealer-Karten anzeigen
+                
                 Label dealerCard = new Label
                 {
                     Text = drawnCard.ToString(),
@@ -278,10 +280,10 @@ namespace Lern_Oeriode_4
                 this.Controls.Add(dealerCard);
             }
 
-            // Berechne die Dealer-Punktzahl
+            
             int dealerScore = CalculateScore(dealerHand);
 
-            // Zeige das Ergebnis an
+            
             EndGame(dealerScore <= 21 && CalculateScore(playerHand) > dealerScore);
         }
 
@@ -292,42 +294,69 @@ namespace Lern_Oeriode_4
 
             if (playerWins)
             {
-                int winAmount = playerBet * 2; // Blackjack Gewinn (doppelt)
+                int winAmount = playerBet * 2; 
                 if (playerScore == 21)
                 {
-                    winAmount = playerBet * 2; // Blackjack-Sonderregel
+                    winAmount = playerBet * 2; 
                 }
                 playerBalance += winAmount;
-                MessageBox.Show($"Du hast gewonnen! Dein Gewinn: {winAmount} Dein Guthaben: {playerBalance}");
+                MessageBox.Show($"Du hast gewonnen! Dein Gewinn: {winAmount} Deine Jetons: {playerBalance}");
             }
             else if (playerScore == dealerScore)
             {
-                playerBalance += playerBet; // Unentschieden - Einsatz zurück
-                MessageBox.Show($"Unentschieden! Dein Guthaben bleibt bei: {playerBalance}");
+                playerBalance += playerBet; 
+                MessageBox.Show($"Unentschieden! Deine Jetons bleibt bei: {playerBalance}");
             }
             else
             {
-                MessageBox.Show($"Du hast verloren! Dein Guthaben: {playerBalance}");
+                MessageBox.Show($"Du hast verloren! Deine Jetons: {playerBalance}");
             }
 
-            // Guthaben anzeigen und speichern
-            balanceLabel.Text = "Guthaben: " + playerBalance;
+            
+            balanceLabel.Text = "Jetons: " + playerBalance;
             SaveBalance(playerBalance);
 
-            // Deaktiviere Buttons nach Spielende
+            
             drawButton.Enabled = false;
             holdButton.Enabled = false;
 
-            // Spiel zurücksetzen für das nächste Spiel
-            ResetGame();
+
+            Task.Delay(2000).ContinueWith(_ => this.Invoke(new Action(ResetGame)));
+
         }
 
         private void ResetGame()
         {
-            startGameButton.Enabled = true;
-            betTextBox.Enabled = true;
+            
+            foreach (Control control in this.Controls.OfType<Label>().ToList())
+            {
+                if (control != scoreLabel && control != dealerLabel && control != balanceLabel)
+                {
+                    this.Controls.Remove(control);
+                    control.Dispose(); 
+                }
+            }
+
+            
+            dealerLabel.Text = "Dealer: ? + ?";
+            scoreLabel.Text = "Punkte: 0";
+
+            
+            deck = CreateDeck();
+            playerHand.Clear();
+            dealerHand.Clear();
+            playerScore = 0;
+
+            
             betTextBox.Clear();
+            betTextBox.Enabled = true;
+
+            
+            startGameButton.Enabled = true;
+            drawButton.Enabled = false;
+            holdButton.Enabled = false;
         }
+
 
         private int CalculateScore(List<Card> hand)
         {
@@ -362,7 +391,7 @@ namespace Lern_Oeriode_4
             }
         }
 
-        // Lade Guthaben
+        
         private int LoadBalance()
         {
             string filePath = "balance.txt";
@@ -374,10 +403,10 @@ namespace Lern_Oeriode_4
                     return balance;
                 }
             }
-            return 10000; // Standardwert
+            return 10000; 
         }
 
-        // Speichere Guthaben
+        
         private void SaveBalance(int balance)
         {
             File.WriteAllText("balance.txt", balance.ToString());
@@ -407,7 +436,7 @@ namespace Lern_Oeriode_4
             return deck.OrderBy(x => rnd.Next()).ToList();
         }
 
-        // Zurück-Button Ereignis
+        
         private void button1_Click(object sender, EventArgs e)
         {
             Form1 form1 = new Form1();

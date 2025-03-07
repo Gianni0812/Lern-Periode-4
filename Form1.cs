@@ -5,12 +5,20 @@ namespace Lern_Oeriode_4
         public Form1()
         {
             InitializeComponent();
+            button2.Text = "Shop";
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Spiel spielForm = new Spiel(); 
-            spielForm.Show();              
+            Spiel spielForm = new Spiel();
+            spielForm.Show();
+            this.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form2 newForm = new Form2();
+            newForm.Show();
             this.Hide();
         }
     }
