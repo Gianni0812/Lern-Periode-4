@@ -34,12 +34,17 @@ Ich habe nicht ganz alle Ziele erreicht die ich erreichen wollte, da meine Arbei
       
 ## 7.3: Kern-Funktionalität
 - [ ] Verdoppeln Button Hinzufügen
-- [ ] Shop im Hauptmenu Hinzufügen
+- [x] Shop im Hauptmenu Hinzufügen
 - [ ] Geld automaten hinzufügen
-      
+
+Ich habe heute einen Shop erstellt, in dem man für Geld das man auf seinem Konto hat Jatons Kaufen und verkaufen kann. Dann gibt es auch noch eine zweite Seite mit der man sich Passiv einkommen Kaufen kann, mit dem man jede Sekunden Geld bekommt. Dies funktioniert leider noch nicht ganz. was ich in der nächsten woche noch in angriff nehmen werde. 
       
 ## 14.3: Architektur ausbauen
-
+- [ ] Kaufen Button richtig programmieren
+- [ ] Verdoppeln Button Hinzufügen
+- [ ] Designen von Form 1
+- [ ] Designen von Form 2
+      
 ## 21.3: Architektur ausbauen
 
 ## 28.3: Auspolieren
