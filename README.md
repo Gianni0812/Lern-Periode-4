@@ -42,10 +42,13 @@ Ich habe heute einen Shop erstellt, in dem man für Geld das man auf seinem Kont
 ## 14.3: Architektur ausbauen
 - [ ] Kaufen Button richtig programmieren
 - [ ] Verdoppeln Button Hinzufügen
-- [ ] Designen von Form 1
+- [x] Designen von Form 1
 - [ ] Designen von Form 2
+
+Da es mir heute nicht sehr gut ging und ich mich nicht sehr fit fühlte konnte ich nicht viel Arbeiten. Ich habe jedoch trotzdem das Start Menu designt und habe probiert das problem mit dem Kaufen vom Passiveinkommen zu beheben. Dies hat aber leider nicht sehr gut Funktioniert. Ich konnte das erste Kaufen und es gibt mir Passiv einkommen, jedoch hat es mit dem rest nicht ganz geklappt und ich wuste nicht weshalb. ChatGbt konnte mir auch nicht wirklich helfen weshalb es jetzt nicht Funktioniert.
       
 ## 21.3: Architektur ausbauen
+
 
 ## 28.3: Auspolieren
 
