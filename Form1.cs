@@ -21,5 +21,10 @@ namespace Lern_Oeriode_4
             newForm.Show();
             this.Hide();
         }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
