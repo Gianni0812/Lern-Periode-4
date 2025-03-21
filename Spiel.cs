@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Lern_Oeriode_4
@@ -20,6 +21,7 @@ namespace Lern_Oeriode_4
         private Label balanceLabel;
         private Button drawButton;
         private Button holdButton;
+        private Button doubleButton;
         private TextBox betTextBox;
         private Button startGameButton;
         private Button backButton;
@@ -32,13 +34,10 @@ namespace Lern_Oeriode_4
             playerHand = new List<Card>();
             dealerHand = new List<Card>();
             playerScore = 0;
-
-
             playerBalance = LoadBalance();
 
             int formWidth = this.ClientSize.Width;
             int formHeight = this.ClientSize.Height;
-
 
             balanceLabel = new Label
             {
@@ -49,7 +48,6 @@ namespace Lern_Oeriode_4
             };
             this.Controls.Add(balanceLabel);
 
-
             scoreLabel = new Label
             {
                 Text = "Punkte: 0",
@@ -59,7 +57,6 @@ namespace Lern_Oeriode_4
             };
             this.Controls.Add(scoreLabel);
 
-
             dealerLabel = new Label
             {
                 Text = "Dealer: ? + ?",
@@ -68,7 +65,6 @@ namespace Lern_Oeriode_4
                 TextAlign = ContentAlignment.MiddleCenter
             };
             this.Controls.Add(dealerLabel);
-
 
             drawButton = new Button
             {
@@ -80,6 +76,15 @@ namespace Lern_Oeriode_4
             drawButton.Enabled = false;
             this.Controls.Add(drawButton);
 
+            doubleButton = new Button
+            {
+                Text = "Verdoppeln",
+                Location = new Point(formWidth / 2 - 75, formHeight - 300),
+                Size = new Size(100, 30),
+                Enabled = false
+            };
+            doubleButton.Click += DoubleDown;
+            this.Controls.Add(doubleButton);
 
             holdButton = new Button
             {
@@ -91,7 +96,6 @@ namespace Lern_Oeriode_4
             holdButton.Enabled = false;
             this.Controls.Add(holdButton);
 
-
             betTextBox = new TextBox
             {
                 Location = new Point(formWidth / 2 - 350, formHeight - 150),
@@ -100,17 +104,14 @@ namespace Lern_Oeriode_4
             };
             this.Controls.Add(betTextBox);
 
-
             startGameButton = new Button
             {
-
                 Text = "Start Spiel",
                 Location = new Point(formWidth / 2 - 350, formHeight - 100),
                 Size = new Size(100, 30)
             };
             startGameButton.Click += StartGame;
             this.Controls.Add(startGameButton);
-
 
             backButton = new Button
             {
@@ -124,7 +125,6 @@ namespace Lern_Oeriode_4
 
         private void StartGame(object sender, EventArgs e)
         {
-
             int betAmount;
             if (int.TryParse(betTextBox.Text, out betAmount) && betAmount > 0 && betAmount <= playerBalance)
             {
@@ -134,30 +134,22 @@ namespace Lern_Oeriode_4
                 startGameButton.Enabled = false;
                 betTextBox.Enabled = false;
 
-
                 deck = CreateDeck();
                 playerHand.Clear();
                 dealerHand.Clear();
                 playerScore = 0;
 
-
-                playerHand.Add(deck[0]);
-                deck.RemoveAt(0);
-                playerHand.Add(deck[0]);
-                deck.RemoveAt(0);
-                dealerHand.Add(deck[0]);
-                deck.RemoveAt(0);
-                dealerHand.Add(deck[0]);
-                deck.RemoveAt(0);
+                playerHand.Add(deck[0]); deck.RemoveAt(0);
+                playerHand.Add(deck[0]); deck.RemoveAt(0);
+                dealerHand.Add(deck[0]); deck.RemoveAt(0);
+                dealerHand.Add(deck[0]); deck.RemoveAt(0);
 
                 playerScore = CalculateScore(playerHand);
                 scoreLabel.Text = "Punkte: " + playerScore;
                 dealerLabel.Text = $"Dealer: {dealerHand[0]} + ?";
 
-
                 int formWidth = this.ClientSize.Width;
                 int formHeight = this.ClientSize.Height;
-
 
                 Label dealerCard1 = new Label
                 {
@@ -179,7 +171,6 @@ namespace Lern_Oeriode_4
                 };
                 this.Controls.Add(dealerCard2);
 
-
                 Label playerCard1 = new Label
                 {
                     Text = playerHand[0].ToString(),
@@ -200,9 +191,9 @@ namespace Lern_Oeriode_4
                 };
                 this.Controls.Add(playerCard2);
 
-
                 drawButton.Enabled = true;
                 holdButton.Enabled = true;
+                doubleButton.Enabled = true;
             }
             else
             {
@@ -249,40 +240,88 @@ namespace Lern_Oeriode_4
 
         private void Hold(object sender, EventArgs e)
         {
+            drawButton.Enabled = false;
+            holdButton.Enabled = false;
+            doubleButton.Enabled = false;
+            DealerTurn();
+        }
+
+        private void DoubleDown(object sender, EventArgs e)
+        {
+            if (playerBalance < playerBet)
+            {
+                MessageBox.Show("Nicht genug Jetons zum Verdoppeln!");
+                return;
+            }
+
+            playerBalance -= playerBet;
+            playerBet *= 2;
+            balanceLabel.Text = "Jetons: " + playerBalance;
+
+            if (deck.Count == 0)
+            {
+                MessageBox.Show("Das Deck ist leer!");
+                return;
+            }
+
+            Card drawnCard = deck[0];
+            deck.RemoveAt(0);
+            playerHand.Add(drawnCard);
+            playerScore = CalculateScore(playerHand);
+
+            Label cardLabel = new Label
+            {
+                Text = drawnCard.ToString(),
+                Location = new Point(this.ClientSize.Width / 2, this.ClientSize.Height - 120 - (playerHand.Count * 30)),
+                Size = new Size(120, 30),
+                BorderStyle = BorderStyle.FixedSingle,
+                TextAlign = ContentAlignment.MiddleCenter
+            };
+            this.Controls.Add(cardLabel);
+
+            scoreLabel.Text = "Punkte: " + playerScore;
 
             drawButton.Enabled = false;
+            holdButton.Enabled = false;
+            doubleButton.Enabled = false;
 
-
-            DealerTurn();
+            if (playerScore > 21)
+            {
+                MessageBox.Show("Du hast dich überkauft! Punktzahl: " + playerScore);
+                EndGame(false);
+            }
+            else
+            {
+                DealerTurn();
+            }
         }
 
         private void DealerTurn()
         {
-
-            dealerLabel.Text = $"Dealer: {dealerHand[0]} + {dealerHand[1]}";
-
-
             while (CalculateScore(dealerHand) < 17)
             {
                 Card drawnCard = deck[0];
                 deck.RemoveAt(0);
                 dealerHand.Add(drawnCard);
+            }
 
+            int dealerScore = CalculateScore(dealerHand);
+            dealerLabel.Text = $"Dealer Punkte: {dealerScore}";
 
-                Label dealerCard = new Label
+            int yOffset = 45;
+            foreach (var card in dealerHand)
+            {
+                Label dealerCardLabel = new Label
                 {
-                    Text = drawnCard.ToString(),
-                    Location = new Point(this.ClientSize.Width / 2 + 100, 80 + dealerHand.Count * 30),
+                    Text = card.ToString(),
                     Size = new Size(120, 30),
+                    Location = new Point(this.ClientSize.Width / 2 + 100, yOffset),
                     BorderStyle = BorderStyle.FixedSingle,
                     TextAlign = ContentAlignment.MiddleCenter
                 };
-                this.Controls.Add(dealerCard);
+                this.Controls.Add(dealerCardLabel);
+                yOffset += 35;
             }
-
-
-            int dealerScore = CalculateScore(dealerHand);
-
 
             EndGame(dealerScore <= 21 && CalculateScore(playerHand) > dealerScore);
         }
@@ -291,6 +330,23 @@ namespace Lern_Oeriode_4
         {
             int dealerScore = CalculateScore(dealerHand);
             int playerScore = CalculateScore(playerHand);
+
+            dealerLabel.Text = $"Dealer Punkte: {dealerScore}";
+
+            int yOffset = 45;
+            foreach (var card in dealerHand)
+            {
+                Label dealerCardLabel = new Label
+                {
+                    Text = card.ToString(),
+                    Size = new Size(120, 30),
+                    Location = new Point(this.ClientSize.Width / 2 + 100, yOffset),
+                    BorderStyle = BorderStyle.FixedSingle,
+                    TextAlign = ContentAlignment.MiddleCenter
+                };
+                this.Controls.Add(dealerCardLabel);
+                yOffset += 35;
+            }
 
             if (playerWins)
             {
@@ -312,22 +368,18 @@ namespace Lern_Oeriode_4
                 MessageBox.Show($"Du hast verloren! Deine Jetons: {playerBalance}");
             }
 
-
             balanceLabel.Text = "Jetons: " + playerBalance;
             SaveBalance(playerBalance);
 
-
             drawButton.Enabled = false;
             holdButton.Enabled = false;
-
+            doubleButton.Enabled = false;
 
             Task.Delay(2000).ContinueWith(_ => this.Invoke(new Action(ResetGame)));
-
         }
 
         private void ResetGame()
         {
-
             foreach (Control control in this.Controls.OfType<Label>().ToList())
             {
                 if (control != scoreLabel && control != dealerLabel && control != balanceLabel)
@@ -337,26 +389,22 @@ namespace Lern_Oeriode_4
                 }
             }
 
-
             dealerLabel.Text = "Dealer: ? + ?";
             scoreLabel.Text = "Punkte: 0";
-
 
             deck = CreateDeck();
             playerHand.Clear();
             dealerHand.Clear();
             playerScore = 0;
 
-
             betTextBox.Clear();
             betTextBox.Enabled = true;
-
 
             startGameButton.Enabled = true;
             drawButton.Enabled = false;
             holdButton.Enabled = false;
+            doubleButton.Enabled = false;
         }
-
 
         private int CalculateScore(List<Card> hand)
         {
@@ -391,7 +439,6 @@ namespace Lern_Oeriode_4
             }
         }
 
-
         private int LoadBalance()
         {
             string filePath = "balance.txt";
@@ -405,7 +452,6 @@ namespace Lern_Oeriode_4
             }
             return 10000;
         }
-
 
         private void SaveBalance(int balance)
         {
@@ -435,7 +481,6 @@ namespace Lern_Oeriode_4
             Random rnd = new Random();
             return deck.OrderBy(x => rnd.Next()).ToList();
         }
-
 
         private void button1_Click(object sender, EventArgs e)
         {

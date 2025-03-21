@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using System.Drawing;
 
 namespace Lern_Oeriode_4
 {
@@ -21,7 +21,6 @@ namespace Lern_Oeriode_4
             LoadPassiveIncome();
 
             int formWidth = this.ClientSize.Width;
-            int formHeight = this.ClientSize.Height;
 
             incomeTimer = new System.Windows.Forms.Timer();
             incomeTimer.Interval = 1000;
@@ -66,16 +65,10 @@ namespace Lern_Oeriode_4
                 foreach (string line in lines)
                 {
                     string[] parts = line.Split(':');
-                    if (parts.Length == 2 && int.TryParse(parts[1], out int amount))
+                    if (parts.Length == 2 && int.TryParse(parts[1], out int count))
                     {
-                        purchasedIncome[parts[0]] = amount;
-                        passiveIncome += amount;
-
-                        if (parts[0] == "Passiv1" && amount > 0) button2.Enabled = false;
-                        if (parts[0] == "Passiv2" && amount > 0) button3.Enabled = false;
-                        if (parts[0] == "Passiv3" && amount > 0) button4.Enabled = false;
-                        if (parts[0] == "Passiv4" && amount > 0) button5.Enabled = false;
-                        if (parts[0] == "Passiv5" && amount > 0) button6.Enabled = false;
+                        purchasedIncome[parts[0]] = count;
+                        passiveIncome += GetIncomePerPurchase(parts[0]) * count;
                     }
                 }
             }
@@ -90,8 +83,58 @@ namespace Lern_Oeriode_4
                 lines.Add($"{income.Key}:{income.Value}");
             }
             File.WriteAllLines(filePath, lines);
+        }
 
-            MessageBox.Show("Passives Einkommen gespeichert!");
+        private int GetIncomePerPurchase(string incomeName)
+        {
+            return incomeName switch
+            {
+                "Passiv1" => 1,
+                "Passiv2" => 10,
+                "Passiv3" => 1200,
+                "Passiv4" => 10000,
+                "Passiv5" => 100000,
+                _ => 0
+            };
+        }
+
+        private int GetCost(string incomeName)
+        {
+            return incomeName switch
+            {
+                "Passiv1" => 100,
+                "Passiv2" => 1000,
+                "Passiv3" => 25000,
+                "Passiv4" => 100000,
+                "Passiv5" => 1000000,
+                _ => 0
+            };
+        }
+
+        private void Kaufen(string incomeName)
+        {
+            int cost = GetCost(incomeName);
+            int income = GetIncomePerPurchase(incomeName);
+
+            if (playerMoney >= cost)
+            {
+                playerMoney -= cost;
+                passiveIncome += income;
+
+                if (!purchasedIncome.ContainsKey(incomeName))
+                    purchasedIncome[incomeName] = 0;
+
+                purchasedIncome[incomeName]++;
+
+                SaveMoney();
+                SavePassiveIncome();
+
+                moneyLabel.Text = "Geld: " + playerMoney;
+            }
+            else
+            {
+                MessageBox.Show("Nicht genug Geld!");
+            }
         }
 
         private void GeneratePassiveIncome(object sender, EventArgs e)
@@ -101,65 +144,35 @@ namespace Lern_Oeriode_4
             SaveMoney();
         }
 
-        private void KaufenPassiveEinkommen(string incomeName, int cost, int incomePerSecond, Button button)
-        {
-            if (playerMoney >= cost)
-            {
-                playerMoney -= cost;
-                moneyLabel.Text = "Geld: " + playerMoney;
-
-                MessageBox.Show($"Neues Geld nach Kauf: {playerMoney}");
-
-                if (!purchasedIncome.ContainsKey(incomeName))
-                {
-                    purchasedIncome[incomeName] = incomePerSecond;
-                    passiveIncome += incomePerSecond;
-                    button.Enabled = false;
-
-                    SaveMoney();
-                    SavePassiveIncome();
-
-                    MessageBox.Show($"Gekauft: {incomeName}! Jetzt verdienst du {incomePerSecond} mehr pro Sekunde!");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Nicht genug Geld!");
-            }
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Button 2 wurde gedrückt!");
-            KaufenPassiveEinkommen("Passiv1", 100, 1, button2);
+            Kaufen("Passiv1");
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Button 3 wurde gedrückt!");
-            KaufenPassiveEinkommen("Passiv2", 1000, 10, button3);
+            Kaufen("Passiv2");
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Button 4 wurde gedrückt!");
-            KaufenPassiveEinkommen("Passiv3", 25000, 1200, button4);
+            Kaufen("Passiv3");
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Button 5 wurde gedrückt!");
-            KaufenPassiveEinkommen("Passiv4", 100000, 10000, button5);
+            Kaufen("Passiv4");
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Button 6 wurde gedrückt!");
-            KaufenPassiveEinkommen("Passiv5", 1000000, 100000, button6);
+            Kaufen("Passiv5");
         }
 
         private void button12_Click(object sender, EventArgs e)
         {
+            SaveMoney();
+            SavePassiveIncome();
             Form2 form2 = new Form2();
             form2.Show();
             this.Hide();
@@ -167,6 +180,8 @@ namespace Lern_Oeriode_4
 
         private void button1_Click(object sender, EventArgs e)
         {
+            SaveMoney();
+            SavePassiveIncome();
             Form1 form1 = new Form1();
             form1.Show();
             this.Hide();
