@@ -30,6 +30,8 @@ namespace Lern_Oeriode_4
         {
             InitializeComponent();
 
+            button1.BackColor = Color.LightBlue;
+
             deck = CreateDeck();
             playerHand = new List<Card>();
             dealerHand = new List<Card>();
