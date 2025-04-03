@@ -53,8 +53,9 @@ Da es mir heute nicht sehr gut ging und ich mich nicht sehr fit fühlte konnte i
 Ich habe Heute viel erreicht. Ich habe mein Projekt schön Designt und zimlich stoltz auf meine Arbeit. Ich habe das Spiel angefangen schöner zu gestellten und habe denn Shop angefangen zu designen. Ich habe denn shop sogar fast fertig und es sieht sehr gut aus. Ich musste aber für denn Shop meinen Gesammten Code kopieren und abändern damit es jetzt funktioniert mit dem Design.
 
 ## 4.4: Auspolieren & Abschluss
-- [ ] Shop Fertig Designen
-- [ ] Spiel fertig Designen
+- [x] Shop Fertig Designen
+- [x] Spiel fertig Designen
 
-      
+Ich habe in der Lern-Periode 4 ein Blackjackspiel mit WinForms programmiert. Das spiel funktoniert sehr gut und es macht süchtig es zu spieln. Das Spiel hat 5 verschiedene Forms. Es gibt ein Menu. In dem Menu kann man entscheiden ob man Spielen will, oder ob man Jetons kaufen möchte. Wenn man auf Shop klickt kann man Jetons Kaufen oder verkaufen:
 
+![image](https://github.com/user-attachments/assets/83a406e4-556a-45fc-93cd-bae247c34ee7)
