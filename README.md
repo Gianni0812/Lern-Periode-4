@@ -56,6 +56,32 @@ Ich habe Heute viel erreicht. Ich habe mein Projekt schön Designt und zimlich s
 - [x] Shop Fertig Designen
 - [x] Spiel fertig Designen
 
-Ich habe in der Lern-Periode 4 ein Blackjackspiel mit WinForms programmiert. Das spiel funktoniert sehr gut und es macht süchtig es zu spieln. Das Spiel hat 5 verschiedene Forms. Es gibt ein Menu. In dem Menu kann man entscheiden ob man Spielen will, oder ob man Jetons kaufen möchte. Wenn man auf Shop klickt kann man Jetons Kaufen oder verkaufen:
+Ich habe in der Lern-Periode 4 ein Blackjack-Spiel mit WinForms programmiert. Das Spiel funktioniert sehr gut und es macht echt süchtig, es zu spielen. Es gibt fünf verschiedene Forms, die das Ganze übersichtlich und spannend machen.
+Es gibt ein Hauptmenü. In diesem Menü kann man entscheiden, ob man spielen will oder ob man Jetons kaufen möchte. Wenn man auf Shop klickt, kommt man in den Shop-Bereich, in dem man Jetons kaufen oder verkaufen kann. Das Ganze ist einfach aufgebaut, damit man schnell reinkommt:
 
 ![image](https://github.com/user-attachments/assets/83a406e4-556a-45fc-93cd-bae247c34ee7)
+
+Wenn man auf Jetons verkaufen klickt, kommt man auf ein weiteres Form. Dort kann man seine erspielten Jetons gegen Geld eintauschen, das man später wieder einsetzen kann:
+
+![image](https://github.com/user-attachments/assets/20308b46-9450-4fda-b0a1-610d99712bd8)
+
+Beim Jetons kaufen ist es genau umgekehrt – dort kann man sein verfügbares Geld gegen Jetons eintauschen:
+
+![image](https://github.com/user-attachments/assets/f743cd1e-5e34-4100-ab3a-6f0aa6122ac4)
+
+Man kann im Menu wie gesagt auch auf Spielen klicken. Klickt man auf spielen wird man direkt zum Spiel Form geführt. Dort kann man eingeben was man für einen Einsatz gibt. Danach werden random Karten zugewiesen für den Dealer und für den Spieler. Der Spieler kann jetzt zwischen 3 dingen auswählern. 
+
+Wenn man im Menü auf Spielen klickt, wird man direkt zum Spiel-Form weitergeleitet. Dort gibt man seinen Einsatz ein, und dann bekommt man automatisch Karten – zwei für den Spieler und zwei für den Dealer. Danach kann man als Spieler drei Dinge machen:
+
+Halten – Dann ist der Dealer dran und es wird verglichen.
+
+Karte – Man zieht eine Karte. Das kann man beliebig oft machen, solange man sich nicht überkauft.
+
+Verdoppeln – Der Einsatz wird verdoppelt, aber man darf nur noch eine Karte ziehen und ist dann fertig.
+
+![image](https://github.com/user-attachments/assets/18d95568-7790-40f2-8724-8711869e2c68)
+
+## Reflexion
+Ich bin sehr zufrieden mit meinem Projekt und finde, dass es mir richtig gut gelungen ist. Anfangs lief alles ziemlich reibungslos, aber mit der Zeit kamen immer mehr kleine Probleme dazu, die ich dann lösen musste. Das hat mich manchmal genervt, aber am Ende habe ich viel dabei gelernt.
+Ich hatte zum Beispiel die Idee, ein passives Einkommen durch Immobilien einzubauen. Das sollte so funktionieren, dass man Immobilien kaufen kann und diese dann regelmäßig Geld bringen – je teurer, desto mehr. Aber leider hat das nicht funktioniert, wie ich es mir vorgestellt hatte. Ich habe es echt oft versucht, aber irgendwie wollte es einfach nicht klappen. Das hat dann so viel Zeit gefressen, dass ich die Idee gestrichen habe.
+Trotzdem bin ich mega stolz auf mein Projekt. Es funktioniert stabil, sieht gut aus, und das Wichtigste: Es macht Spaß! Ich habe viel gelernt – nicht nur über Programmieren, sondern auch über Geduld, Ausdauer und wie man Fehler findet. Es war auf jeden Fall ein cooles Projekt!
