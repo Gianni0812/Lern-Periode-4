@@ -24,8 +24,8 @@ namespace Lern_Oeriode_4
             playerBalance = LoadBalance();
 
 
-            Cash.Text = "Geld: " + playerMoney;
-            Jetons.Text = "Jetons: " + playerBalance;
+            Cash.Text = "" + playerMoney;
+            Jetons.Text = "" + playerBalance;
             Max.Text = $"Max: ({playerMoney})";
         }
 
@@ -141,8 +141,8 @@ namespace Lern_Oeriode_4
                 playerMoney -= preis;
                 playerBalance += jetons;
 
-                Cash.Text = "Geld: " + playerMoney;
-                Jetons.Text = "Jetons: " + playerBalance;
+                Cash.Text = "" + playerMoney;
+                Jetons.Text = "" + playerBalance;
 
                 SaveMoney(playerMoney);
                 SaveBalance(playerBalance);
@@ -163,8 +163,8 @@ namespace Lern_Oeriode_4
                 playerMoney -= preis;
                 playerBalance += jetons;
 
-                Cash.Text = "Geld: " + playerMoney;
-                Jetons.Text = "Jetons: " + playerBalance;
+                Cash.Text = "" + playerMoney;
+                Jetons.Text = "" + playerBalance;
 
                 SaveMoney(playerMoney);
                 SaveBalance(playerBalance);
@@ -185,8 +185,8 @@ namespace Lern_Oeriode_4
                 playerMoney -= preis;
                 playerBalance += jetons;
 
-                Cash.Text = "Geld: " + playerMoney;
-                Jetons.Text = "Jetons: " + playerBalance;
+                Cash.Text = "" + playerMoney;
+                Jetons.Text = "" + playerBalance;
 
                 SaveMoney(playerMoney);
                 SaveBalance(playerBalance);
@@ -207,8 +207,8 @@ namespace Lern_Oeriode_4
                 playerMoney -= preis;
                 playerBalance += jetons;
 
-                Cash.Text = "Geld: " + playerMoney;
-                Jetons.Text = "Jetons: " + playerBalance;
+                Cash.Text = "" + playerMoney;
+                Jetons.Text = "" + playerBalance;
 
                 SaveMoney(playerMoney);
                 SaveBalance(playerBalance);
@@ -227,8 +227,8 @@ namespace Lern_Oeriode_4
                 playerBalance += jetons;
                 playerMoney = 0;
 
-                Cash.Text = "Geld: " + playerMoney;
-                Jetons.Text = "Jetons: " + playerBalance;
+                Cash.Text = "" + playerMoney;
+                Jetons.Text = "" + playerBalance;
 
                 SaveMoney(playerMoney);
                 SaveBalance(playerBalance);
@@ -239,10 +239,7 @@ namespace Lern_Oeriode_4
             }
         }
 
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
+        private void label3_Click(object sender, EventArgs e){}
     }
 }
 

@@ -24,11 +24,12 @@ namespace Lern_Oeriode_4
             JetonsVerkaufen.BackColor = Color.LimeGreen;
             Back.BackColor = Color.Red;
 
-            Cash.Text = "" + playerMoney;
-            Jetons.Text = "" + playerBalance;
 
             playerBalance = LoadBalance();
             playerMoney = LoadMoney();
+
+            Cash.Text = "" + playerMoney;
+            Jetons.Text = "" + playerBalance;
 
             int formWidth = this.ClientSize.Width;
 
@@ -81,14 +82,14 @@ namespace Lern_Oeriode_4
 
         private void JetonsKaufen_Click(object sender, EventArgs e)
         {
-            uy kaufForm = new uy(); // Jetons kaufen
+            uy kaufForm = new uy(); 
             kaufForm.Show();
             this.Hide();
         }
 
         private void JetonsVerkaufen_Click(object sender, EventArgs e)
         {
-            PayOff verkaufForm = new PayOff(); // Jetons verkaufen
+            PayOff verkaufForm = new PayOff(); 
             verkaufForm.Show();
             this.Hide();
         }

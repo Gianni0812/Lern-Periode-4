@@ -28,6 +28,7 @@ namespace Lern_Oeriode_4
         {
             Cash.Text = "" + playerMoney;
             Jetons.Text = "" + playerBalance;
+            Max.Text = $"Max: ({playerBalance})";
         }
 
         private void button2_Click(object sender, EventArgs e)

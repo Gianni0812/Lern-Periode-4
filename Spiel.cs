@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Neu strukturierter Spiel-Code mit gestaffeltem Kartenlayout
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -72,10 +74,10 @@ namespace Lern_Oeriode_4
             {
                 Text = "Karte ziehen",
                 Location = new Point(formWidth / 2 - 200, formHeight - 300),
-                Size = new Size(100, 30)
+                Size = new Size(100, 30),
+                Enabled = false
             };
             drawButton.Click += DrawCard;
-            drawButton.Enabled = false;
             this.Controls.Add(drawButton);
 
             doubleButton = new Button
@@ -92,10 +94,10 @@ namespace Lern_Oeriode_4
             {
                 Text = "Halten",
                 Location = new Point(formWidth / 2 + 50, formHeight - 300),
-                Size = new Size(100, 30)
+                Size = new Size(100, 30),
+                Enabled = false
             };
             holdButton.Click += Hold;
-            holdButton.Enabled = false;
             this.Controls.Add(holdButton);
 
             betTextBox = new TextBox
@@ -127,8 +129,7 @@ namespace Lern_Oeriode_4
 
         private void StartGame(object sender, EventArgs e)
         {
-            int betAmount;
-            if (int.TryParse(betTextBox.Text, out betAmount) && betAmount > 0 && betAmount <= playerBalance)
+            if (int.TryParse(betTextBox.Text, out int betAmount) && betAmount > 0 && betAmount <= playerBalance)
             {
                 playerBet = betAmount;
                 playerBalance -= playerBet;
@@ -150,48 +151,7 @@ namespace Lern_Oeriode_4
                 scoreLabel.Text = "Punkte: " + playerScore;
                 dealerLabel.Text = $"Dealer: {dealerHand[0]} + ?";
 
-                int formWidth = this.ClientSize.Width;
-                int formHeight = this.ClientSize.Height;
-
-                Label dealerCard1 = new Label
-                {
-                    Text = dealerHand[0].ToString(),
-                    Size = new Size(120, 30),
-                    Location = new Point(250, 45),
-                    BorderStyle = BorderStyle.FixedSingle,
-                    TextAlign = ContentAlignment.MiddleCenter
-                };
-                this.Controls.Add(dealerCard1);
-
-                Label dealerCard2 = new Label
-                {
-                    Text = "Verdeckt",
-                    Size = new Size(120, 30),
-                    Location = new Point(formWidth - 400, 45),
-                    BorderStyle = BorderStyle.FixedSingle,
-                    TextAlign = ContentAlignment.MiddleCenter
-                };
-                this.Controls.Add(dealerCard2);
-
-                Label playerCard1 = new Label
-                {
-                    Text = playerHand[0].ToString(),
-                    Size = new Size(120, 30),
-                    Location = new Point(250, formHeight - 150),
-                    BorderStyle = BorderStyle.FixedSingle,
-                    TextAlign = ContentAlignment.MiddleCenter
-                };
-                this.Controls.Add(playerCard1);
-
-                Label playerCard2 = new Label
-                {
-                    Text = playerHand[1].ToString(),
-                    Size = new Size(120, 30),
-                    Location = new Point(formWidth - 400, formHeight - 150),
-                    BorderStyle = BorderStyle.FixedSingle,
-                    TextAlign = ContentAlignment.MiddleCenter
-                };
-                this.Controls.Add(playerCard2);
+                DisplayCards();
 
                 drawButton.Enabled = true;
                 holdButton.Enabled = true;
@@ -203,30 +163,72 @@ namespace Lern_Oeriode_4
             }
         }
 
+        private void DisplayCards()
+        {
+            ClearCardLabels();
+
+            int cardWidth = 120;
+            int cardHeight = 30;
+            int spacing = 10;
+
+            // Spieler-Karten (unten)
+            for (int i = 0; i < playerHand.Count; i++)
+            {
+                int column = i / 2;
+                int row = i % 2;
+                int x = 250 + column * (cardWidth + spacing);
+                int y = this.ClientSize.Height - 150 + row * (cardHeight + spacing);
+
+                this.Controls.Add(CreateCardLabel(playerHand[i].ToString(), new Point(x, y)));
+            }
+
+            // Dealer-Karten (oben)
+            for (int i = 0; i < dealerHand.Count; i++)
+            {
+                int column = i / 2;
+                int row = i % 2;
+                int x = 250 + column * (cardWidth + spacing);
+                int y = 45 - row * (cardHeight + spacing);
+
+                this.Controls.Add(CreateCardLabel(dealerHand[i].ToString(), new Point(x, y)));
+            }
+        }
+
+        private void ClearCardLabels()
+        {
+            foreach (Control c in this.Controls.OfType<Label>().ToList())
+            {
+                if (c != scoreLabel && c != dealerLabel && c != balanceLabel)
+                {
+                    this.Controls.Remove(c);
+                    c.Dispose();
+                }
+            }
+        }
+
+        private Label CreateCardLabel(string text, Point location)
+        {
+            return new Label
+            {
+                Text = text,
+                Size = new Size(120, 30),
+                Location = location,
+                BorderStyle = BorderStyle.FixedSingle,
+                TextAlign = ContentAlignment.MiddleCenter
+            };
+        }
+
         private void DrawCard(object sender, EventArgs e)
         {
-            if (deck.Count == 0)
-            {
-                MessageBox.Show("Das Deck ist leer!");
-                return;
-            }
+            if (deck.Count == 0) { MessageBox.Show("Das Deck ist leer!"); return; }
 
             Card drawnCard = deck[0];
             deck.RemoveAt(0);
             playerHand.Add(drawnCard);
             playerScore = CalculateScore(playerHand);
 
-            Label cardLabel = new Label
-            {
-                Text = drawnCard.ToString(),
-                Location = new Point(this.ClientSize.Width / 2, this.ClientSize.Height - 120 - (playerHand.Count * 30)),
-                Size = new Size(120, 30),
-                BorderStyle = BorderStyle.FixedSingle,
-                TextAlign = ContentAlignment.MiddleCenter
-            };
-            this.Controls.Add(cardLabel);
-
             scoreLabel.Text = "Punkte: " + playerScore;
+            DisplayCards();
 
             if (playerScore > 21)
             {
@@ -250,38 +252,21 @@ namespace Lern_Oeriode_4
 
         private void DoubleDown(object sender, EventArgs e)
         {
-            if (playerBalance < playerBet)
-            {
-                MessageBox.Show("Nicht genug Jetons zum Verdoppeln!");
-                return;
-            }
+            if (playerBalance < playerBet) { MessageBox.Show("Nicht genug Jetons zum Verdoppeln!"); return; }
 
             playerBalance -= playerBet;
             playerBet *= 2;
             balanceLabel.Text = "Jetons: " + playerBalance;
 
-            if (deck.Count == 0)
-            {
-                MessageBox.Show("Das Deck ist leer!");
-                return;
-            }
+            if (deck.Count == 0) { MessageBox.Show("Das Deck ist leer!"); return; }
 
             Card drawnCard = deck[0];
             deck.RemoveAt(0);
             playerHand.Add(drawnCard);
             playerScore = CalculateScore(playerHand);
 
-            Label cardLabel = new Label
-            {
-                Text = drawnCard.ToString(),
-                Location = new Point(this.ClientSize.Width / 2, this.ClientSize.Height - 120 - (playerHand.Count * 30)),
-                Size = new Size(120, 30),
-                BorderStyle = BorderStyle.FixedSingle,
-                TextAlign = ContentAlignment.MiddleCenter
-            };
-            this.Controls.Add(cardLabel);
-
             scoreLabel.Text = "Punkte: " + playerScore;
+            DisplayCards();
 
             drawButton.Enabled = false;
             holdButton.Enabled = false;
@@ -302,61 +287,23 @@ namespace Lern_Oeriode_4
         {
             while (CalculateScore(dealerHand) < 17)
             {
-                Card drawnCard = deck[0];
+                dealerHand.Add(deck[0]);
                 deck.RemoveAt(0);
-                dealerHand.Add(drawnCard);
             }
+            dealerLabel.Text = $"Dealer Punkte: {CalculateScore(dealerHand)}";
+            DisplayCards();
 
-            int dealerScore = CalculateScore(dealerHand);
-            dealerLabel.Text = $"Dealer Punkte: {dealerScore}";
-
-            int yOffset = 45;
-            foreach (var card in dealerHand)
-            {
-                Label dealerCardLabel = new Label
-                {
-                    Text = card.ToString(),
-                    Size = new Size(120, 30),
-                    Location = new Point(this.ClientSize.Width / 2 + 100, yOffset),
-                    BorderStyle = BorderStyle.FixedSingle,
-                    TextAlign = ContentAlignment.MiddleCenter
-                };
-                this.Controls.Add(dealerCardLabel);
-                yOffset += 35;
-            }
-
-            EndGame(dealerScore <= 21 && CalculateScore(playerHand) > dealerScore);
+            EndGame(CalculateScore(dealerHand) <= 21 && playerScore > CalculateScore(dealerHand));
         }
 
         private void EndGame(bool playerWins)
         {
             int dealerScore = CalculateScore(dealerHand);
-            int playerScore = CalculateScore(playerHand);
-
             dealerLabel.Text = $"Dealer Punkte: {dealerScore}";
-
-            int yOffset = 45;
-            foreach (var card in dealerHand)
-            {
-                Label dealerCardLabel = new Label
-                {
-                    Text = card.ToString(),
-                    Size = new Size(120, 30),
-                    Location = new Point(this.ClientSize.Width / 2 + 100, yOffset),
-                    BorderStyle = BorderStyle.FixedSingle,
-                    TextAlign = ContentAlignment.MiddleCenter
-                };
-                this.Controls.Add(dealerCardLabel);
-                yOffset += 35;
-            }
 
             if (playerWins)
             {
                 int winAmount = playerBet * 2;
-                if (playerScore == 21)
-                {
-                    winAmount = playerBet * 2;
-                }
                 playerBalance += winAmount;
                 MessageBox.Show($"Du hast gewonnen! Dein Gewinn: {winAmount} Deine Jetons: {playerBalance}");
             }
@@ -382,14 +329,7 @@ namespace Lern_Oeriode_4
 
         private void ResetGame()
         {
-            foreach (Control control in this.Controls.OfType<Label>().ToList())
-            {
-                if (control != scoreLabel && control != dealerLabel && control != balanceLabel)
-                {
-                    this.Controls.Remove(control);
-                    control.Dispose();
-                }
-            }
+            ClearCardLabels();
 
             dealerLabel.Text = "Dealer: ? + ?";
             scoreLabel.Text = "Punkte: 0";
@@ -416,8 +356,7 @@ namespace Lern_Oeriode_4
             foreach (var card in hand)
             {
                 score += card.Value;
-                if (card.Rank == "A")
-                    aceCount++;
+                if (card.Rank == "A") aceCount++;
             }
 
             while (score > 21 && aceCount > 0)
@@ -447,10 +386,7 @@ namespace Lern_Oeriode_4
             if (File.Exists(filePath))
             {
                 string content = File.ReadAllText(filePath);
-                if (int.TryParse(content, out int balance))
-                {
-                    return balance;
-                }
+                if (int.TryParse(content, out int balance)) return balance;
             }
             return 10000;
         }
@@ -471,12 +407,7 @@ namespace Lern_Oeriode_4
                 for (int i = 0; i < ranks.Length; i++)
                 {
                     int value = (i < 9) ? i + 2 : (i < 12) ? 10 : 11;
-                    deck.Add(new Card
-                    {
-                        Suit = suit,
-                        Rank = ranks[i],
-                        Value = value
-                    });
+                    deck.Add(new Card { Suit = suit, Rank = ranks[i], Value = value });
                 }
             }
 

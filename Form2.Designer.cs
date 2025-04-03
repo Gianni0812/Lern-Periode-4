@@ -47,7 +47,7 @@
             Jetons.BackColor = SystemColors.HotTrack;
             Jetons.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Jetons.ForeColor = SystemColors.ButtonHighlight;
-            Jetons.Location = new Point(437, 28);
+            Jetons.Location = new Point(440, 28);
             Jetons.Name = "Jetons";
             Jetons.Size = new Size(83, 32);
             Jetons.TabIndex = 17;
@@ -70,7 +70,7 @@
             Cash.BackColor = SystemColors.HotTrack;
             Cash.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Cash.ForeColor = SystemColors.ButtonHighlight;
-            Cash.Location = new Point(633, 28);
+            Cash.Location = new Point(638, 28);
             Cash.Name = "Cash";
             Cash.Size = new Size(83, 32);
             Cash.TabIndex = 15;
