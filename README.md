@@ -69,8 +69,6 @@ Beim Jetons kaufen ist es genau umgekehrt – dort kann man sein verfügbares Ge
 
 ![image](https://github.com/user-attachments/assets/f743cd1e-5e34-4100-ab3a-6f0aa6122ac4)
 
-Man kann im Menu wie gesagt auch auf Spielen klicken. Klickt man auf spielen wird man direkt zum Spiel Form geführt. Dort kann man eingeben was man für einen Einsatz gibt. Danach werden random Karten zugewiesen für den Dealer und für den Spieler. Der Spieler kann jetzt zwischen 3 dingen auswählern. 
-
 Wenn man im Menü auf Spielen klickt, wird man direkt zum Spiel-Form weitergeleitet. Dort gibt man seinen Einsatz ein, und dann bekommt man automatisch Karten – zwei für den Spieler und zwei für den Dealer. Danach kann man als Spieler drei Dinge machen:
 
 Halten – Dann ist der Dealer dran und es wird verglichen.
